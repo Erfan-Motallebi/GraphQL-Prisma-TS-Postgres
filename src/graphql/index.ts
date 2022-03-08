@@ -1,3 +1,4 @@
+import { profileResolver } from "./resolver/profileResolver";
 import { postResolver } from "./resolver/postResolver";
 import { testResolver } from "./resolver/testResolver";
 import { userResolver } from "./resolver/userResolver";
@@ -21,15 +22,14 @@ export const resolvers = {
     ...userResolver.UserMeUnion,
   },
 
-  Profile: {
-    ...userResolver.Profile,
-  },
-
   User: {
     ...userResolver.User,
   },
 
   /**
-   * Other Specific Types - Post Repository
+   * Other Specific Types - Profile Repository
    */
+  Profile: {
+    ...profileResolver.Profile,
+  },
 };

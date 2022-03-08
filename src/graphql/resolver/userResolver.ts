@@ -38,15 +38,6 @@ export const userResolver = {
       if (object.message) return "UserError";
     },
   },
-  Profile: {
-    async user(profile: Profile, __: any, { prisma }: IContext): Promise<User> {
-      return (await prisma.user.findUnique({
-        where: {
-          id: profile.userId,
-        },
-      })) as User;
-    },
-  },
   User: {
     async post(user: User, __: any, { prisma }: IContext): Promise<Post[]> {
       return await prisma.post.findMany({
