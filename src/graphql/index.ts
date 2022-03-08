@@ -25,6 +25,10 @@ export const resolvers = {
     ...userResolver.Profile,
   },
 
+  User: {
+    ...userResolver.User,
+  },
+
   /**
    * Other Specific Types - Post Repository
    */
