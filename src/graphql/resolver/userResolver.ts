@@ -1,4 +1,4 @@
-import { Profile, User } from "@prisma/client";
+import { Post, Profile, User } from "@prisma/client";
 import { IContext } from "../..";
 import { inputValidation } from "../../utils/inputValidation";
 import {
@@ -45,6 +45,15 @@ export const userResolver = {
           id: profile.userId,
         },
       })) as User;
+    },
+  },
+  User: {
+    async post(user: User, __: any, { prisma }: IContext): Promise<Post[]> {
+      return await prisma.post.findMany({
+        where: {
+          authorId: user.id,
+        },
+      });
     },
   },
   Query: {
