@@ -37,7 +37,7 @@ export interface IUserSignArgs {
 
 export const userResolver = {
   UserMeUnion: {
-    __resolveType(object: any) {
+    __resolveType(object: any, __: IContext, ___: any) {
       if (object.email) return "User";
       if (object.message) return "UserError";
     },
