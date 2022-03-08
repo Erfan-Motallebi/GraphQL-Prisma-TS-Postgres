@@ -49,6 +49,8 @@ export const typeDefs = gql`
     token: String
   }
 
+  union UserMeUnion = User | UserError
+
   input UserRegInput {
     email: String!
     name: String
@@ -65,7 +67,7 @@ export const typeDefs = gql`
   type Query {
     posts: [Post!]!
     hello: String!
-    userMe: User
+    userMe(userId: ID!): UserMeUnion!
   }
 
   type Mutation {

@@ -6,9 +6,22 @@ export const resolvers = {
   Query: {
     ...testResolver.Query,
     ...postResolver.Query,
+    ...userResolver.Query,
   },
   Mutation: {
     ...postResolver.Mutation,
     ...userResolver.Mutation,
   },
+
+  /**
+   * Other Specific Types - User Repository
+   */
+
+  UserMeUnion: {
+    ...userResolver.UserMeUnion,
+  },
+
+  /**
+   * Other Specific Types - Post Repository
+   */
 };

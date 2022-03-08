@@ -21,6 +21,12 @@ export interface IUserRegArgs {
   };
 }
 
+type IUserError = {
+  message: string;
+};
+
+type MeQueryType = User | IUserError;
+
 export interface IUserSignArgs {
   userArgs: {
     email: string;
@@ -30,6 +36,32 @@ export interface IUserSignArgs {
 }
 
 export const userResolver = {
+  UserMeUnion: {
+    __resolveType(object: any) {
+      if (object.email) return "User";
+      if (object.message) return "UserError";
+    },
+  },
+  Query: {
+    userMe: async (
+      _: any,
+      { userId }: { userId: string },
+      { prisma }: IContext
+    ) => {
+      const user = await prisma.user.findUnique({
+        where: {
+          id: Number(userId),
+        },
+      });
+
+      if (!user) {
+        return { message: "User not Found" };
+      }
+
+      return user;
+    },
+  },
+
   Mutation: {
     userRegistration: async (
       _: any,

@@ -30,6 +30,13 @@ export const postResolver = {
 
         const token = req.headers["authorization"] as string;
 
+        if (!token) {
+          return {
+            userError: [{ message: "Token not privded" }],
+            post: null,
+          };
+        }
+
         await tokenService.tokenVerify(token);
 
         const userDecodedToken = await tokenService.tokenDecoder(token);
@@ -59,6 +66,13 @@ export const postResolver = {
       const { title, content, published } = postArgs;
 
       const token = req.headers["authorization"] as string;
+
+      if (!token) {
+        return {
+          userError: [{ message: "Token not privded" }],
+          post: null,
+        };
+      }
 
       await tokenService.tokenVerify(token);
 
@@ -147,6 +161,13 @@ export const postResolver = {
       }
 
       const token = req.headers["authorization"] as string;
+
+      if (!token) {
+        return {
+          userError: [{ message: "Token not privded" }],
+          post: null,
+        };
+      }
 
       await tokenService.tokenVerify(token);
 
