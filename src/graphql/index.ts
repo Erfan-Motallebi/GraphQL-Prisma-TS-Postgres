@@ -21,6 +21,10 @@ export const resolvers = {
     ...userResolver.UserMeUnion,
   },
 
+  Profile: {
+    ...userResolver.Profile,
+  },
+
   /**
    * Other Specific Types - Post Repository
    */

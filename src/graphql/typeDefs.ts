@@ -11,7 +11,6 @@ export const typeDefs = gql`
     name: String!
     createdAt: String!
     post: [Post]
-    profile: Profile
   }
 
   type Profile implements Node {
@@ -68,6 +67,7 @@ export const typeDefs = gql`
     posts: [Post!]!
     hello: String!
     userMe(userId: ID!): UserMeUnion
+    profile(userId: ID!): Profile
   }
 
   type Mutation {

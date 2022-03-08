@@ -1,4 +1,4 @@
-import { User } from "@prisma/client";
+import { Profile, User } from "@prisma/client";
 import { IContext } from "../..";
 import { inputValidation } from "../../utils/inputValidation";
 import {
@@ -21,12 +21,6 @@ export interface IUserRegArgs {
   };
 }
 
-type IUserError = {
-  message: string;
-};
-
-type MeQueryType = User | IUserError;
-
 export interface IUserSignArgs {
   userArgs: {
     email: string;
@@ -35,11 +29,22 @@ export interface IUserSignArgs {
   };
 }
 
+type ProfileType = Profile;
+
 export const userResolver = {
   UserMeUnion: {
     __resolveType(object: any, __: IContext, ___: any) {
       if (object.email) return "User";
       if (object.message) return "UserError";
+    },
+  },
+  Profile: {
+    async user(profile: Profile, __: any, { prisma }: IContext): Promise<User> {
+      return (await prisma.user.findUnique({
+        where: {
+          id: profile.userId,
+        },
+      })) as User;
     },
   },
   Query: {
@@ -59,6 +64,21 @@ export const userResolver = {
       }
 
       return user;
+    },
+    profile: async (
+      _: any,
+      { userId }: { userId: string },
+      { prisma }: IContext
+    ): Promise<ProfileType | string> => {
+      if (!userId) {
+        return "userId not found";
+      }
+
+      return (await prisma.profile.findUnique({
+        where: {
+          id: parseFloat(userId),
+        },
+      })) as ProfileType;
     },
   },
 
