@@ -1,3 +1,4 @@
+import { User } from "@prisma/client";
 import { Post } from ".prisma/client";
 import { IContext } from "../..";
 import { inputValidation } from "../../utils/inputValidation";
@@ -225,6 +226,16 @@ export const postResolver = {
           },
         ],
       });
+    },
+  },
+
+  Post: {
+    async user(post: Post, __: any, { prisma }: IContext): Promise<User> {
+      return (await prisma.user.findUnique({
+        where: {
+          id: post.authorId,
+        },
+      })) as User;
     },
   },
 };
