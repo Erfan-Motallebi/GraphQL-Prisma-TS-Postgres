@@ -32,4 +32,11 @@ export const resolvers = {
   Profile: {
     ...profileResolver.Profile,
   },
+
+  /**
+   * Other Specific Types - Post Repository
+   */
+  Post: {
+    ...postResolver.Post,
+  },
 };
