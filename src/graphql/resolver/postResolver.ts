@@ -1,3 +1,4 @@
+import { userLoader } from "./../dataLoaders/userLoader";
 import { User } from "@prisma/client";
 import { Post } from ".prisma/client";
 import { IContext } from "../..";
@@ -231,11 +232,19 @@ export const postResolver = {
 
   Post: {
     async user(post: Post, __: any, { prisma }: IContext): Promise<User> {
-      return (await prisma.user.findUnique({
-        where: {
-          id: post.authorId,
-        },
-      })) as User;
+      /**
+       * 1 + N Requests [ using Dataloaders to reduce the I/O operation - Disk Block Access]
+       */
+
+      // return (await prisma.user.findUnique({
+      //   where: {
+      //     id: post.authorId,
+      //   },
+      // })) as User;
+
+      console.log("Called");
+
+      return await userLoader.load(post.authorId);
     },
   },
 };

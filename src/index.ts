@@ -14,7 +14,7 @@ export interface IContext {
   req: Express["request"];
 }
 
-const prisma = new PrismaClient();
+export const prisma = new PrismaClient();
 
 function bootstrap() {
   const server = new ApolloServer({
