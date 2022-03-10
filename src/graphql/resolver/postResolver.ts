@@ -242,8 +242,6 @@ export const postResolver = {
       //   },
       // })) as User;
 
-      console.log("Called");
-
       return await userLoader.load(post.authorId);
     },
   },
