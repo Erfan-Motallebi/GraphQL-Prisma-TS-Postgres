@@ -21,4 +21,4 @@ export const batchUsers: BatchUserType = async (userIds): Promise<User[]> => {
 };
 
 //@ts-ignore
-export const userLoader = new DataLoader<Number, User>(batchUsers);
+export const userLoader = new DataLoader<number, User>(batchUsers);

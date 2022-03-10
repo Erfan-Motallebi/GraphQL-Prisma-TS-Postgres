@@ -127,13 +127,14 @@ export const userResolver = {
             email,
             name,
             password: hashedPassword,
+            profile: {
+              create: {
+                bio,
+              },
+            },
           },
-        });
-
-        const userProfile = await prisma.profile.create({
-          data: {
-            bio,
-            userId: newUser.id,
+          include: {
+            profile: true,
           },
         });
 

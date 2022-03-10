@@ -235,13 +235,13 @@ export const postResolver = {
       /**
        * 1 + N Requests [ using Dataloaders to reduce the I/O operation - Disk Block Access]
        */
+      console.log("Post Called");
 
       // return (await prisma.user.findUnique({
       //   where: {
       //     id: post.authorId,
       //   },
       // })) as User;
-
       return await userLoader.load(post.authorId);
     },
   },
