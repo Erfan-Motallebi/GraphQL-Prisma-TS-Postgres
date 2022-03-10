@@ -1,9 +1,8 @@
-import { userLoader } from "./../dataLoaders/userLoader";
-import { User } from "@prisma/client";
 import { Post } from ".prisma/client";
 import { IContext } from "../..";
 import { inputValidation } from "../../utils/inputValidation";
 import { tokenService } from "../../utils/tokenService";
+import { userLoader } from "../dataLoaders/userLoader";
 
 export interface IPostArgs {
   postArgs: {
@@ -231,18 +230,20 @@ export const postResolver = {
   },
 
   Post: {
-    async user(post: Post, __: any, { prisma }: IContext): Promise<User> {
+    async user(post: Post, __: any, { prisma }: IContext) {
       /**
        * 1 + N Requests [ using Dataloaders to reduce the I/O operation - Disk Block Access]
        */
       console.log("Post Called");
 
-      // return (await prisma.user.findUnique({
-      //   where: {
-      //     id: post.authorId,
-      //   },
-      // })) as User;
       return await userLoader.load(post.authorId);
+      // return await prisma.post
+      //   .findUnique({
+      //     where: {
+      //       id: post.id,
+      //     },
+      //   })
+      //   .author();
     },
   },
 };

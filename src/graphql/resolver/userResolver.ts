@@ -184,7 +184,7 @@ export const userResolver = {
 
         const isMatchedPass = await passwordConfirmation(
           { password, user },
-          { prisma, req }
+          { prisma }
         );
         if (!isMatchedPass) {
           return {

@@ -1,10 +1,10 @@
 import { User } from "@prisma/client";
-import DataLoader from "dataloader";
+import dataLoader from "dataloader";
 import { prisma } from "./../../index";
 
 type BatchUserType = (userIds: number[]) => Promise<User[]>;
 
-export const batchUsers: BatchUserType = async (userIds): Promise<User[]> => {
+export const batchUsers: BatchUserType = async (userIds) => {
   const users = await prisma.user.findMany({
     where: {
       id: {
@@ -21,4 +21,4 @@ export const batchUsers: BatchUserType = async (userIds): Promise<User[]> => {
 };
 
 //@ts-ignore
-export const userLoader = new DataLoader<number, User>(batchUsers);
+export const userLoader = new dataLoader<number, User>(batchUsers);

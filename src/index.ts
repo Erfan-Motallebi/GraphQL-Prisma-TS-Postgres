@@ -11,7 +11,6 @@ export interface IContext {
     never,
     Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined
   >;
-
   req: Express["request"];
 }
 
